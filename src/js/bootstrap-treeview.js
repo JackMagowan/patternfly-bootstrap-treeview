@@ -1804,13 +1804,16 @@
 		Searches the tree for nodes (text) that match given criteria
 		@param {String} pattern - A given string to match against
 		@param {optional Object} options - Search criteria options
+		@param {optional Object} attribute - Search attribute to seach on nodes defaults to text
 		@return {Array} nodes - Matching nodes
 	*/
-	Tree.prototype.search = function (pattern, options) {
+	Tree.prototype.search = function (pattern, options, attribute) {
 		options = $.extend({}, _default.searchOptions, options);
 
 		var previous = this._getSearchResults();
 		var results = [];
+
+		attribute = attribute ? attribute : "text"
 
 		if (pattern && pattern.length > 0) {
 
@@ -1823,7 +1826,7 @@
 				modifier += 'i';
 			}
 
-			results = this._findNodes(pattern, 'text', modifier);
+			results = this._findNodes(pattern, attribute, modifier);
 		}
 
 		// Clear previous results no longer matched
